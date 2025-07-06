@@ -44,6 +44,7 @@ const App = () => {
       id: Date.now(),
       title: taskData.title,
       description: taskData.description,
+      priority: taskData.priority,
       completed: false,
       createdAt: new Date().toISOString()
     };

@@ -124,6 +124,29 @@ const TaskItem = ({ task, onToggleComplete, onEdit, onDelete }) => {
         </button>
 
         <div style={{ flex: 1 }}>
+          {/* ✅ Priority badge */}
+          {task.priority && (
+            <span
+              style={{
+                display: "inline-block",
+                padding: "4px 8px",
+                borderRadius: "6px",
+                fontSize: "0.75rem",
+                fontWeight: "bold",
+                color: "white",
+                backgroundColor:
+                  task.priority === "High"
+                    ? "#dc2626"
+                    : task.priority === "Medium"
+                    ? "#f59e0b"
+                    : "#10b981",
+                marginBottom: "0.5rem"
+              }}
+            >
+              {task.priority}
+            </span>
+          )}
+
           <h3
             style={{
               margin: "0 0 0.5rem 0",
