@@ -11,19 +11,20 @@ const App = () => {
   const [tasks, setTasks] = useState([]);
   const [showTaskForm, setShowTaskForm] = useState(false);
   const [filter, setFilter] = useState('all');
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const savedUser = loadFromLocalStorage('taskTracker_user');
-    const savedTasks = loadFromLocalStorage('taskTracker_tasks', []);
-    console.log("savedUser:", savedUser);
-    console.log("savedTasks:", savedTasks);
-    if (savedUser) setUser(savedUser);
-    if (savedTasks.length > 0) setTasks(savedTasks);
+    const savedTasks = loadFromLocalStorage(`taskTracker_tasks_${savedUser}`, []);
+    if (savedUser) {
+      setUser(savedUser);
+      setTasks(savedTasks);
+    }
   }, []);
 
   useEffect(() => {
     if (user) {
-      saveToLocalStorage('taskTracker_tasks', tasks);
+      saveToLocalStorage(`taskTracker_tasks_${user}`, tasks);
     }
   }, [tasks, user]);
 
@@ -36,7 +37,6 @@ const App = () => {
     setUser(null);
     setTasks([]);
     removeFromLocalStorage('taskTracker_user');
-    removeFromLocalStorage('taskTracker_tasks');
   };
 
   const addTask = (taskData) => {
@@ -94,7 +94,11 @@ const App = () => {
     return <Login onLogin={handleLogin} />;
   }
 
-  const filteredTasks = getFilteredTasks();
+  const filteredTasks = getFilteredTasks().filter(task =>
+    task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    task.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const taskCounts = getTaskCounts();
 
   return (
@@ -170,6 +174,23 @@ const App = () => {
             />
           </div>
         )}
+
+        <div style={{ marginTop: '20px' }}>
+          <input
+            type="text"
+            placeholder="Search tasks..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{
+              width: '100%',
+              padding: '10px',
+              fontSize: '1rem',
+              margin: '1rem 0',
+              border: '1px solid #ccc',
+              borderRadius: '6px'
+            }}
+          />
+        </div>
 
         <div style={{ marginTop: '20px' }}>
           <TaskFilter
