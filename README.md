@@ -31,7 +31,7 @@ A simple personal task management application built using React. Users can log i
     npm start
 
 4. Open in your browser at
-http://localhost:3000
+[http://localhost:3000](http://localhost:3000)
 
 
 ## 🧰 Technologies Used
@@ -41,6 +41,8 @@ http://localhost:3000
 - localStorage (for persistence)
 
 ## 🔗 Live Demo
+## 🔗 Live Demo
+[https://AIbyHimanshu.github.io/task-tracker](https://AIbyHimanshu.github.io/task-tracker)
 
 
 ## 🖼️ Screenshots
